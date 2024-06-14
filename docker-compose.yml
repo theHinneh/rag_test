@@ -1,0 +1,23 @@
+services:
+  mongodb:
+    image: mongodb/mongodb-atlas-local
+    container_name: mongodb
+    env_file:
+      - path: .env
+        required: true
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    ports:
+      - 27018:27017
+    volumes:
+      - ./data:/data/db
+    networks:
+      - rag
+volumes:
+  data:
+    driver: local
+
+networks:
+  rag:
+    driver: bridge
